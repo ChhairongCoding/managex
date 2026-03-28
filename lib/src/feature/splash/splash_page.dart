@@ -51,7 +51,7 @@ class _SplashPageState extends State<SplashPage>
 
     Timer(const Duration(seconds: 3), () {
       if (mounted) {
-        Navigator.pushReplacementNamed(context, Routers.home);
+        Navigator.pushReplacementNamed(context, Routers.appPage);
       }
     });
   }

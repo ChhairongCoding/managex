@@ -1,10 +1,17 @@
+import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'package:stockmanagement/src/core/routes/init_route.dart';
 import 'package:stockmanagement/src/core/routes/routers.dart';
 import 'package:stockmanagement/src/core/theme/app_theme.dart';
-import 'package:stockmanagement/src/feature/home/view/home_page.dart';
-import 'package:stockmanagement/src/feature/splash/splash_page.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  if (!kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
+    sqfliteFfiInit();
+    databaseFactory = databaseFactoryFfi;
+  }
   runApp(const MainApp());
 }
 
@@ -18,10 +25,7 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
       initialRoute: Routers.splashPage,
-      routes: {
-        Routers.splashPage: (context) => const SplashPage(),
-        Routers.home: (context) => const HomePage(),
-      },
+      routes: initRoute,
     );
   }
 }

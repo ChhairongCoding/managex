@@ -13,6 +13,7 @@ class AppTheme {
       primary: AppColors.primary,
       secondary: AppColors.secondary,
       surface: AppColors.surface,
+      tertiary: AppColors.tertiary,
     ),
 
     textTheme: AppTextTheme.lightTextTheme,
