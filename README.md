@@ -1,4 +1,4 @@
-# stockmanagement
+# stockify
 
 A new Flutter project.
-# stockmanagement
+# stockify
