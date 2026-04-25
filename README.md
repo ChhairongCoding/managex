@@ -1,4 +1,4 @@
-# stockify
+# managex
 
 A new Flutter project.
-# stockify
+# managex
