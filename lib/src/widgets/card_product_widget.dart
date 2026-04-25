@@ -114,6 +114,9 @@ Container cardProductWidget({
                   Expanded(
                     child: ElevatedButton.icon(
                       style: theme.elevatedButtonTheme.style?.copyWith(
+                        fixedSize: WidgetStatePropertyAll(
+                          Size(double.infinity, 50),
+                        ),
                         backgroundColor: WidgetStatePropertyAll(
                           theme.colorScheme.tertiary,
                         ),
@@ -127,6 +130,7 @@ Container cardProductWidget({
                   IconButton.filled(
                     style: IconButton.styleFrom(
                       backgroundColor: theme.colorScheme.error,
+                      fixedSize: Size(double.infinity, 50),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -137,6 +141,7 @@ Container cardProductWidget({
                   IconButton.filled(
                     style: IconButton.styleFrom(
                       backgroundColor: theme.colorScheme.primary,
+                      fixedSize: Size(double.infinity, 50),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),

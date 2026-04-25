@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:stockmanagement/src/feature/home/model/product_model.dart';
+import 'package:stockmanagement/src/feature/home/view/widgets/card_product_recently_activity_widget.dart';
 import 'package:stockmanagement/src/feature/home/view/widgets/item_cart_widget.dart';
 import 'package:stockmanagement/src/widgets/card_product_widget.dart';
 import 'package:stockmanagement/src/widgets/skeleton_widget.dart';
@@ -19,7 +20,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     // Simulate loading
-    Future.delayed(const Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 1), () {
       if (mounted) {
         setState(() {
           _isLoading = false;
@@ -200,11 +201,11 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Inventory Items",
+                      "Recent Activity",
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     Text(
-                      "Showing all available stock items.",
+                      "Showing all recent activities.",
                       style: theme.textTheme.bodyMedium,
                     ),
                   ],
@@ -219,140 +220,7 @@ class _HomePageState extends State<HomePage> {
               itemCount: products.length.clamp(0, 5),
               itemBuilder: (context, index) {
                 final product = products[index];
-                return Container(
-                  padding: const EdgeInsets.only(bottom: 16),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    spacing: 10,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
-                        child: Image.network(
-                          product.imageUrl,
-                          height: 100,
-                          width: 100,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) =>
-                              Container(
-                                height: 100,
-                                width: 100,
-                                color: theme.colorScheme.surfaceVariant,
-                                child: Icon(
-                                  Icons.broken_image_outlined,
-                                  color: theme.colorScheme.onSurfaceVariant,
-                                ),
-                              ),
-                          loadingBuilder: (context, child, loadingProgress) {
-                            if (loadingProgress == null) return child;
-                            return Container(
-                              height: 100,
-                              width: 100,
-                              color: theme.colorScheme.surfaceVariant,
-                              child: const Center(
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                      Expanded(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: Column(
-                                spacing: 8,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    product.title,
-                                    maxLines: 2,
-
-                                    style: theme.textTheme.titleMedium
-                                        ?.copyWith(height: 1.1),
-                                  ),
-                                  Text(
-                                    product.description,
-                                    maxLines: 1,
-                                    style: theme.textTheme.bodyMedium,
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 6,
-                                      vertical: 2,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: 5 >= product.inStock
-                                          ? theme.colorScheme.error
-                                          : theme.colorScheme.tertiary,
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                    child: Text(
-                                      5 >= product.inStock
-                                          ? "Low Stock"
-                                          : "Healthy Stock",
-                                      maxLines: 1,
-                                      style: theme.textTheme.bodyMedium
-                                          ?.copyWith(
-                                            color: product.qty < product.inStock
-                                                ? theme.colorScheme.onError
-                                                : theme.colorScheme.onTertiary,
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "${product.inStock}",
-                                  style: theme.textTheme.bodyLarge?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: 5 >= product.inStock
-                                        ? theme.colorScheme.error
-                                        : theme.colorScheme.tertiary,
-                                  ),
-                                ),
-                                Text(
-                                  "In Stock",
-                                  style: theme.textTheme.labelSmall?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: 5 >= product.inStock
-                                        ? theme.colorScheme.error
-                                        : theme.colorScheme.tertiary,
-                                  ),
-                                ),
-                                Row(
-                                  children: [
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(
-                                        Icons.remove,
-                                        color: theme.colorScheme.error,
-                                      ),
-                                    ),
-
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(
-                                        Icons.add,
-                                        color: theme.colorScheme.primary,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                );
+                return cardProductRecentActivityWidget(product, theme);
               },
             ),
           ],

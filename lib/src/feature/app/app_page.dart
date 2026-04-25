@@ -16,6 +16,7 @@ class AppPage extends StatefulWidget {
 
 class _AppPageState extends State<AppPage> {
   int _selectedIndex = 0;
+  bool _isScrolled = false;
 
   final List<Widget> _pages = [
     const HomePage(),
@@ -29,9 +30,28 @@ class _AppPageState extends State<AppPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _selectedIndex == 0 || _selectedIndex == 1
-          ? appBar(context)
+          ? appBar(context, isScrolled: _isScrolled)
           : null,
-      body: _pages[_selectedIndex],
+      body: NotificationListener<ScrollNotification>(
+        onNotification: (scrollInfo) {
+          if (scrollInfo.metrics.axis == Axis.vertical) {
+            bool isScrolled = scrollInfo.metrics.pixels > 0;
+            if (isScrolled != _isScrolled) {
+              setState(() {
+                _isScrolled = isScrolled;
+              });
+            }
+          }
+          return false;
+        },
+        child: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 50),
+          transitionBuilder: (Widget child, Animation<double> animation) {
+            return FadeTransition(opacity: animation, child: child);
+          },
+          child: _pages[_selectedIndex],
+        ),
+      ),
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
         notchMargin: 8.0,
