@@ -56,7 +56,7 @@ Container cardProductRecentActivityWidget(
                       style: theme.textTheme.titleMedium?.copyWith(height: 1.1),
                     ),
                     Text(
-                      product.description,
+                      product.sku,
                       maxLines: 1,
                       style: theme.textTheme.bodyMedium,
                     ),

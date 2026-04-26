@@ -22,7 +22,7 @@ PreferredSizeWidget appBar(BuildContext context, {bool isScrolled = false}) {
         fontWeight: FontWeight.bold,
         fontSize: 22,
       ),
-      child: const Text("Stockify"),
+      child: const Text("ManageX"),
     ),
     actions: [
       TweenAnimationBuilder<Color?>(

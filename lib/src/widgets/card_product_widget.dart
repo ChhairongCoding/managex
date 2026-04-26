@@ -126,29 +126,6 @@ Container cardProductWidget({
                       label: const Text("Restock Items now"),
                     ),
                   ),
-                  const SizedBox(width: 8),
-                  IconButton.filled(
-                    style: IconButton.styleFrom(
-                      backgroundColor: theme.colorScheme.error,
-                      fixedSize: Size(double.infinity, 50),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    onPressed: () {},
-                    icon: const Icon(Icons.remove, size: 18),
-                  ),
-                  IconButton.filled(
-                    style: IconButton.styleFrom(
-                      backgroundColor: theme.colorScheme.primary,
-                      fixedSize: Size(double.infinity, 50),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    onPressed: () {},
-                    icon: const Icon(Icons.add, size: 18),
-                  ),
                 ],
               ),
             ],

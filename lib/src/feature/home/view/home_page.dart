@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:stockmanagement/src/feature/home/model/product_model.dart';
-import 'package:stockmanagement/src/feature/home/view/widgets/card_product_recently_activity_widget.dart';
 import 'package:stockmanagement/src/feature/home/view/widgets/item_cart_widget.dart';
-import 'package:stockmanagement/src/widgets/card_product_widget.dart';
 import 'package:stockmanagement/src/widgets/skeleton_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -76,44 +74,44 @@ class _HomePageState extends State<HomePage> {
     // Dummy Products
     final List<ProductModel> products = [
       ProductModel(
-        title: "Sennheiser Headphones",
-        description: "High-quality wireless headphones with noise cancelling.",
+        title: "Chrono-X Titanium",
+        sku: "CTX-2024-SILVER",
         qty: 2,
-        inStock: 20,
+        inStock: 42,
         imageUrl:
-            "https://images.squarespace-cdn.com/content/v1/62957e003c63212b17de5749/cb3406ee-bb0d-418c-9ba1-4f182180ef2a/Sennheiser-Product-Gel0018.jpg",
+            "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=2000&auto=format&fit=crop",
       ),
       ProductModel(
-        title: "Mechanical Keyboard",
-        description: "RGB Backlit mechanical keyboard with brown switches.",
-        qty: 15,
-        inStock: 30,
-        imageUrl:
-            "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?q=80&w=2070&auto=format&fit=crop",
-      ),
-      ProductModel(
-        title: "Gaming Mouse",
-        description: "Ultra-lightweight gaming mouse with 25k DPI sensor.",
+        title: "Sonic-Bose Pro",
+        sku: "SB-700-BLACK",
         qty: 5,
-        inStock: 50,
+        inStock: 08,
         imageUrl:
-            "https://images.unsplash.com/photo-1527814732934-94a1fe58abc1?q=80&w=2080&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=2000&auto=format&fit=crop",
       ),
       ProductModel(
-        title: "4K Monitor 27\"",
-        description: "IPS panel monitor with 144Hz refresh rate for gaming.",
-        qty: 1,
-        inStock: 5,
+        title: "MacBook Pro M3 Max",
+        sku: "MBP-14-M3-64GB",
+        qty: 12,
+        inStock: 42,
         imageUrl:
-            "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=2070&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=2000&auto=format&fit=crop",
       ),
       ProductModel(
-        title: "USB-C Hub",
-        description: "7-in-1 USB-C hub with HDMI, PD, and USB 3.0 ports.",
-        qty: 25,
-        inStock: 40,
+        title: "OLED Bravia 65\"",
+        sku: "SONY-A95L-65",
+        qty: 8,
+        inStock: 08,
         imageUrl:
-            "https://images.unsplash.com/photo-1625842268584-8f3bf4375081?q=80&w=2070&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?q=80&w=2000&auto=format&fit=crop",
+      ),
+      ProductModel(
+        title: "ErgoChair Pro",
+        sku: "EC-2024-GREY",
+        qty: 15,
+        inStock: 25,
+        imageUrl:
+            "https://images.unsplash.com/photo-1505843490538-5133c6c7d0e1?q=80&w=2000&auto=format&fit=crop",
       ),
     ];
 
@@ -126,172 +124,324 @@ class _HomePageState extends State<HomePage> {
           spacing: 16,
           children: [
             _inventoryValueCard(context),
-            itemCardWidget(
-              context,
-              "Total Items",
-              "0",
-              HugeIcons.strokeRoundedPackage01,
-              Colors.black,
-              Theme.of(context).colorScheme.primary,
-            ),
-            itemCardWidget(
-              context,
-              "Low Stock Items",
-              "08",
-              Icons.error_outline,
-              Theme.of(context).colorScheme.error,
-              Theme.of(context).colorScheme.error,
-            ),
-
-            const SizedBox(height: 16),
-
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.end,
+              spacing: 16,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Inventory Items",
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    Text(
-                      "Showing all available stock items.",
-                      style: theme.textTheme.bodyMedium,
-                    ),
-                  ],
+                itemCardWidget(
+                  context,
+                  "Total Items",
+                  "12,482",
+                  HugeIcons.strokeRoundedPackage01,
+                  Colors.black,
+                  Theme.of(context).colorScheme.primary,
+                  backgroundColor: Theme.of(context).colorScheme.surface,
                 ),
-                Text(
-                  "View all".toUpperCase(),
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
+                itemCardWidget(
+                  context,
+                  "Low Stock",
+                  "08 SKUs",
+                  Icons.error_outline,
+                  Colors.black,
+                  Theme.of(context).colorScheme.error,
+                  backgroundColor: Theme.of(
+                    context,
+                  ).colorScheme.errorContainer.withValues(alpha: 0.04),
                 ),
               ],
             ),
 
-            // Display 5 Products
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: products.length.clamp(0, 5),
-              itemBuilder: (context, index) {
-                final product = products[index];
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 16),
-                  child: cardProductWidget(
-                    context: context,
-                    theme: theme,
-                    title: product.title,
-                    description: product.description,
-                    qty: product.qty,
-                    inStock: product.inStock,
-                    imageUrl: product.imageUrl,
-                  ),
-                );
-              },
-            ),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Recent Activity",
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    Text(
-                      "Showing all recent activities.",
-                      style: theme.textTheme.bodyMedium,
-                    ),
-                  ],
-                ),
-              ],
-            ),
             const SizedBox(height: 8),
+            _sectionHeader(context, "Critical Alerts", onViewAll: () {}),
+            _criticalAlertsSection(context, products, theme),
 
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: products.length.clamp(0, 5),
-              itemBuilder: (context, index) {
-                final product = products[index];
-                return cardProductRecentActivityWidget(product, theme);
-              },
-            ),
+            const SizedBox(height: 8),
+            _sectionHeader(context, "Recent Activity"),
+            _recentActivitySection(context, products, theme),
           ],
         ),
       ),
     );
   }
 
-  Container _inventoryValueCard(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Total inventory value".toUpperCase(),
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-          const SizedBox(height: 8),
-          Text(
-            "\$0.00",
-            style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-              color: Theme.of(context).colorScheme.primary,
-              fontSize: 38,
+  Widget _sectionHeader(
+    BuildContext context,
+    String title, {
+    VoidCallback? onViewAll,
+  }) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          title,
+          style: Theme.of(
+            context,
+          ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+        ),
+        if (onViewAll != null)
+          TextButton(
+            onPressed: onViewAll,
+            child: Text(
+              "View All",
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.primary,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
-          const SizedBox(height: 22),
-          Row(
-            spacing: 15,
+      ],
+    );
+  }
+
+  Widget _criticalAlertsSection(
+    BuildContext context,
+    List<ProductModel> products,
+    ThemeData theme,
+  ) {
+    // Filter for low stock for demo
+    final lowStockProducts = products.where((p) => p.qty <= 5).toList();
+
+    return Column(
+      spacing: 12,
+      children: lowStockProducts.map((product) {
+        return Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: theme.colorScheme.surface,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(
+              color: theme.colorScheme.outline.withValues(alpha: 0.1),
+            ),
+          ),
+          child: Row(
             children: [
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Image.network(
+                  product.imageUrl,
+                  width: 80,
+                  height: 80,
+                  fit: BoxFit.cover,
                 ),
-                decoration: BoxDecoration(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.tertiary.withValues(alpha: 0.3),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Row(
-                  spacing: 5,
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(
-                      Icons.arrow_upward_rounded,
-                      color: Theme.of(context).colorScheme.tertiary,
-                      size: 20,
-                    ),
                     Text(
-                      "0.0%",
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.tertiary,
+                      product.title,
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    RichText(
+                      text: TextSpan(
+                        style: theme.textTheme.bodyMedium,
+                        children: [
+                          const TextSpan(text: "Stock: "),
+                          TextSpan(
+                            text:
+                                "${product.qty.toString().padLeft(2, '0')} left",
+                            style: TextStyle(
+                              color: theme.colorScheme.error,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    InkWell(
+                      onTap: () {},
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.shopping_bag,
+                            size: 16,
+                            color: theme.colorScheme.primary,
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            "RESTOCK NOW",
+                            style: theme.textTheme.labelLarge?.copyWith(
+                              color: theme.colorScheme.primary,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 0.5,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
               ),
-              Text(
-                "vs last month",
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
             ],
           ),
-        ],
+        );
+      }).toList(),
+    );
+  }
+
+  Widget _recentActivitySection(
+    BuildContext context,
+    List<ProductModel> products,
+    ThemeData theme,
+  ) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surface,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(
+          color: theme.colorScheme.outline.withValues(alpha: 0.1),
+        ),
+      ),
+      child: ListView.separated(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: products.length,
+        separatorBuilder: (context, index) => Divider(
+          color: theme.colorScheme.outline.withValues(alpha: 0.05),
+          height: 32,
+        ),
+        itemBuilder: (context, index) {
+          final product = products[index];
+          // Simple logic for demo differentiation
+          final isSale = index % 2 != 0;
+          return Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.network(
+                  product.imageUrl,
+                  width: 48,
+                  height: 48,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      product.title,
+                      style: theme.textTheme.titleSmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      isSale ? "Sale • 15m ago" : "Update by Admin • 2m ago",
+                      style: theme.textTheme.labelSmall?.copyWith(
+                        color: theme.colorScheme.onSurface.withValues(
+                          alpha: 0.5,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    isSale ? "-01" : "+15",
+                    style: theme.textTheme.titleSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: isSale
+                          ? theme.colorScheme.error
+                          : theme.colorScheme.tertiary,
+                    ),
+                  ),
+                  Text(
+                    "Qty: ${product.inStock}",
+                    style: theme.textTheme.labelSmall?.copyWith(
+                      color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          );
+        },
       ),
     );
   }
+}
+
+Container _inventoryValueCard(BuildContext context) {
+  final theme = Theme.of(context);
+  return Container(
+    width: MediaQuery.of(context).size.width,
+    padding: const EdgeInsets.all(24),
+    decoration: BoxDecoration(
+      color: Theme.of(context).colorScheme.surface,
+      borderRadius: BorderRadius.circular(28),
+      border: Border.all(
+        color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.1),
+      ),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withValues(alpha: 0.03),
+          blurRadius: 20,
+          offset: const Offset(0, 10),
+        ),
+      ],
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Total inventory value".toUpperCase(),
+          style: Theme.of(context).textTheme.labelLarge?.copyWith(
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+            fontWeight: FontWeight.bold,
+            letterSpacing: 1.1,
+          ),
+        ),
+        const SizedBox(height: 12),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              "\$4,289,550",
+              style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                color: theme.colorScheme.onSurface,
+                fontWeight: FontWeight.w900,
+              ),
+            ),
+            const SizedBox(width: 12),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: BoxDecoration(
+                color: theme.colorScheme.tertiaryContainer.withValues(
+                  alpha: 0.3,
+                ),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.trending_up_rounded,
+                    color: theme.colorScheme.tertiary,
+                    size: 16,
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    "12.5%",
+                    style: theme.textTheme.labelMedium?.copyWith(
+                      color: theme.colorScheme.tertiary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
 }

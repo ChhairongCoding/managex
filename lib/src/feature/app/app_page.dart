@@ -44,13 +44,7 @@ class _AppPageState extends State<AppPage> {
           }
           return false;
         },
-        child: AnimatedSwitcher(
-          duration: const Duration(milliseconds: 50),
-          transitionBuilder: (Widget child, Animation<double> animation) {
-            return FadeTransition(opacity: animation, child: child);
-          },
-          child: _pages[_selectedIndex],
-        ),
+        child: IndexedStack(index: _selectedIndex, children: _pages),
       ),
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
@@ -87,12 +81,12 @@ class _AppPageState extends State<AppPage> {
                   _navItem(
                     icon: HugeIcons.strokeRoundedTransactionHistory,
                     label: "HISTORY",
-                    index: 2,
+                    index: 3,
                   ),
                   _navItem(
                     icon: HugeIcons.strokeRoundedSettings01,
                     label: "Settings",
-                    index: 3,
+                    index: 4,
                   ),
                 ],
               ),

@@ -65,7 +65,7 @@ class _ShowAddProductModalWidgetState extends State<ShowAddProductModalWidget> {
                 children: [
                   IconButton(
                     onPressed: () => Navigator.pop(context),
-                    icon: const Icon(Icons.close),
+                    icon: const Icon(Icons.close, color: Colors.black),
                   ),
                   const Text(
                     "Add Product",
