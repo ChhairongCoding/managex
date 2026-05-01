@@ -113,6 +113,9 @@ class _AppPageState extends State<AppPage> {
     final color = isSelected ? Theme.of(context).primaryColor : Colors.black;
 
     return MaterialButton(
+      hoverColor: Colors.transparent,
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
       minWidth: 40,
       onPressed: () {
         setState(() {

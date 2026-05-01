@@ -10,7 +10,10 @@ class ItemCardInventoryWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFFF8FAFF),
+        border: Border.all(
+          color: theme.colorScheme.outline.withValues(alpha: 0.1),
+        ),
+        color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(24),
       ),
       child: Column(

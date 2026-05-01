@@ -38,7 +38,7 @@ class MainApp extends StatelessWidget {
         title: "ManageX",
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
-        initialRoute: Routers.splashPage,
+        initialRoute: Routers.login,
         routes: initRoute,
       ),
     );
