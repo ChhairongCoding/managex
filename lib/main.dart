@@ -7,6 +7,8 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:stockmanagement/src/core/routes/init_route.dart';
 import 'package:stockmanagement/src/core/routes/routers.dart';
 import 'package:stockmanagement/src/core/theme/app_theme.dart';
+import 'package:stockmanagement/src/feature/auth/login_register/bloc/register_bloc.dart';
+import 'package:stockmanagement/src/feature/auth/login_register/repository/login_register_repo.dart';
 
 import 'package:stockmanagement/src/feature/inventory/inventory_repo.dart';
 import 'package:stockmanagement/src/feature/inventory/bloc/index.dart';
@@ -33,12 +35,15 @@ class MainApp extends StatelessWidget {
         BlocProvider<InventoryBloc>(
           create: (context) => InventoryBloc(InventoryRepo()),
         ),
+        BlocProvider<RegisterBloc>(
+          create: (context) => RegisterBloc(LoginRegisterRepo()),
+        ),
       ],
       child: MaterialApp(
         title: "ManageX",
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
-        initialRoute: Routers.login,
+        initialRoute: Routers.splashPage,
         routes: initRoute,
       ),
     );

@@ -376,7 +376,7 @@ Container _inventoryValueCard(BuildContext context) {
     width: MediaQuery.of(context).size.width,
     padding: const EdgeInsets.all(24),
     decoration: BoxDecoration(
-      color: Theme.of(context).colorScheme.surface,
+      color: Theme.of(context).primaryColor,
       borderRadius: BorderRadius.circular(28),
       border: Border.all(
         color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.1),
@@ -395,7 +395,7 @@ Container _inventoryValueCard(BuildContext context) {
         Text(
           "Total inventory value".toUpperCase(),
           style: Theme.of(context).textTheme.labelLarge?.copyWith(
-            color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+            color: theme.canvasColor,
             fontWeight: FontWeight.bold,
             letterSpacing: 1.1,
           ),
@@ -407,7 +407,7 @@ Container _inventoryValueCard(BuildContext context) {
             Text(
               "\$4,289,550",
               style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                color: theme.colorScheme.onSurface,
+                color: theme.canvasColor,
                 fontWeight: FontWeight.w900,
               ),
             ),
@@ -415,9 +415,7 @@ Container _inventoryValueCard(BuildContext context) {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
-                color: theme.colorScheme.tertiaryContainer.withValues(
-                  alpha: 0.3,
-                ),
+                color: theme.canvasColor,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Row(

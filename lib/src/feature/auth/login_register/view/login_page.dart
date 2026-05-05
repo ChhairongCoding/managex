@@ -76,52 +76,29 @@ class _LoginPageState extends State<LoginPage> {
                         spacing: 16,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text("Email", style: theme.textTheme.labelLarge),
-                              const SizedBox(height: 5),
-                              Column(
-                                children: [
-                                  textFieldCustomWidget(
-                                    controller: _emailController,
-                                    context: context,
-                                    hintText: "name@managex.com",
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return "Please enter your email";
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ],
+                          textFieldCustomWidget(
+                            controller: _emailController,
+                            context: context,
+                            label: "Email",
+                            hintText: "name@managex.com",
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Please enter your email";
+                              }
+                              return null;
+                            },
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Password",
-                                style: theme.textTheme.labelLarge,
-                              ),
-                              const SizedBox(height: 5),
-                              Column(
-                                children: [
-                                  textFieldCustomWidget(
-                                    controller: _passwordController,
-                                    context: context,
-                                    hintText: "your password",
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return "Please enter your password";
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ],
+                          textFieldCustomWidget(
+                            controller: _passwordController,
+                            context: context,
+                            label: "Password",
+                            hintText: "********",
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Please enter your password";
+                              }
+                              return null;
+                            },
                           ),
                           const SizedBox(height: 10),
                           Row(

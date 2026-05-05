@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:async';
 import 'package:stockmanagement/src/core/routes/routers.dart';
 import 'package:stockmanagement/src/core/theme/app_colors.dart';
+import 'package:stockmanagement/src/feature/auth/login_register/bloc/index.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -65,96 +67,146 @@ class _SplashPageState extends State<SplashPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [AppColors.primary, AppColors.primary.withBlue(150)],
-          ),
-        ),
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            // Floating background blobs for "premium" feel
-            Positioned(
-              top: -100,
-              right: -100,
-              child: Container(
-                width: 300,
-                height: 300,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white.withValues(alpha: 0.05),
-                ),
+      body: BlocListener<RegisterBloc, RegisterState>(
+        listener: (context, state) {
+          if (state is Authenticated || state is Unauthenticated) {
+            // Delay navigation slightly to let the splash animation show
+            Future.delayed(const Duration(seconds: 3), () {
+              if (mounted) {
+                if (state is Authenticated) {
+                  Navigator.pushReplacementNamed(context, Routers.appPage);
+                } else if (state is Unauthenticated) {
+                  Navigator.pushReplacementNamed(context, Routers.register);
+                }
+              }
+            });
+          }
+        },
+        child: BlocBuilder<RegisterBloc, RegisterState>(
+          builder: (state, rContext) {
+          return Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [AppColors.primary, AppColors.primary.withBlue(150)],
               ),
             ),
-            Positioned(
-              bottom: -50,
-              left: -50,
-              child: Container(
-                width: 200,
-                height: 200,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white.withValues(alpha: 0.05),
-                ),
-              ),
-            ),
-
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: Stack(
+              alignment: Alignment.center,
               children: [
-                FadeTransition(
-                  opacity: _fadeAnimation,
-                  child: ScaleTransition(
-                    scale: _scaleAnimation,
-                    child: Container(
-                      padding: const EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.1),
-                            blurRadius: 20,
-                            spreadRadius: 5,
-                          ),
-                        ],
-                      ),
-                      child: Image.asset(
-                        "assets/images/logo.png",
-                        width: 80,
-                        height: 80,
-                      ),
+                // Floating background blobs for "premium" feel
+                Positioned(
+                  top: -100,
+                  right: -100,
+                  child: Container(
+                    width: 300,
+                    height: 300,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white.withValues(alpha: 0.05),
                     ),
                   ),
                 ),
-                const SizedBox(height: 24),
-                SlideTransition(
-                  position: _slideAnimation,
+                Positioned(
+                  bottom: -50,
+                  left: -50,
+                  child: Container(
+                    width: 200,
+                    height: 200,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white.withValues(alpha: 0.05),
+                    ),
+                  ),
+                ),
+
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FadeTransition(
+                      opacity: _fadeAnimation,
+                      child: ScaleTransition(
+                        scale: _scaleAnimation,
+                        child: Container(
+                          padding: const EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withValues(alpha: 0.1),
+                                blurRadius: 20,
+                                spreadRadius: 5,
+                              ),
+                            ],
+                          ),
+                          child: Image.asset(
+                            "assets/images/logo.png",
+                            width: 80,
+                            height: 80,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    SlideTransition(
+                      position: _slideAnimation,
+                      child: FadeTransition(
+                        opacity: _fadeAnimation,
+                        child: Column(
+                          children: [
+                            Text(
+                              "Stock Master",
+                              style: Theme.of(context).textTheme.headlineLarge
+                                  ?.copyWith(
+                                    color: Colors.white,
+                                    letterSpacing: 1.2,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              "Precision Stock Management",
+                              style: Theme.of(context).textTheme.bodyMedium
+                                  ?.copyWith(
+                                    color: Colors.white.withValues(alpha: 0.8),
+                                    letterSpacing: 0.5,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
+                Positioned(
+                  bottom: 60,
                   child: FadeTransition(
                     opacity: _fadeAnimation,
                     child: Column(
                       children: [
-                        Text(
-                          "Stock Master",
-                          style: Theme.of(context).textTheme.headlineLarge
-                              ?.copyWith(
-                                color: Colors.white,
-                                letterSpacing: 1.2,
-                                fontWeight: FontWeight.w800,
-                              ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          child: LinearProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              Colors.white.withValues(alpha: 0.8),
+                            ),
+                            backgroundColor: Colors.grey,
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white,
+                          ),
                         ),
-                        const SizedBox(height: 8),
+                        const SizedBox(height: 24),
                         Text(
-                          "Precision Stock Management",
-                          style: Theme.of(context).textTheme.bodyMedium
+                          "Version 1.0.0",
+                          style: Theme.of(context).textTheme.labelMedium
                               ?.copyWith(
-                                color: Colors.white.withValues(alpha: 0.8),
-                                letterSpacing: 0.5,
+                                color: Colors.white60,
+                                letterSpacing: 1.1,
                               ),
                         ),
                       ],
@@ -163,39 +215,10 @@ class _SplashPageState extends State<SplashPage>
                 ),
               ],
             ),
-
-            Positioned(
-              bottom: 60,
-              child: FadeTransition(
-                opacity: _fadeAnimation,
-                child: Column(
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      child: LinearProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(
-                          Colors.white.withValues(alpha: 0.8),
-                        ),
-                        backgroundColor: Colors.grey,
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.white,
-                      ),
-                    ),
-                    const SizedBox(height: 24),
-                    Text(
-                      "Version 1.0.0",
-                      style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                        color: Colors.white60,
-                        letterSpacing: 1.1,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
+          );
+        },
       ),
-    );
-  }
+    ),
+  );
+}
 }

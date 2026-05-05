@@ -5,14 +5,14 @@ import 'package:stockmanagement/src/feature/auth/login_register/repository/login
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final LoginRegisterRepo loginRegisterRepo;
-  LoginBloc(this.loginRegisterRepo) : super(LoginInitial()) {
+  LoginBloc(this.loginRegisterRepo) : super(const LoginInitial()) {
     on<LoginSubmitted>(_onSubmitted);
   }
   void _onSubmitted(LoginSubmitted event, Emitter<LoginState> emit) async {
-    emit(LoginLoading());
+    emit(const LoginLoading());
     try {
       await loginRegisterRepo.login(event.email, event.password);
-      emit(LoginSuccess());
+      emit(const LoginSuccess());
     } catch (e) {
       emit(LoginError(message: e.toString()));
     }
