@@ -119,6 +119,7 @@ class _HistoryPageState extends State<HistoryPage> {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text(
           "History",
           style: TextStyle(fontWeight: FontWeight.bold),
@@ -126,31 +127,35 @@ class _HistoryPageState extends State<HistoryPage> {
         elevation: 0,
         scrolledUnderElevation: 0,
       ),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Filter bar
-            _buildFilterBar(theme),
-            const SizedBox(height: 24),
+      body: _buildBody(theme),
+    );
+  }
 
-            // Today section
-            _buildDateHeader("Today", theme),
-            const SizedBox(height: 12),
-            ..._todayActivities.map((a) => _buildActivityCard(a, theme)),
+  SingleChildScrollView _buildBody(ThemeData theme) {
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Filter bar
+          _buildFilterBar(theme),
+          const SizedBox(height: 24),
 
-            const SizedBox(height: 24),
+          // Today section
+          _buildDateHeader("Today", theme),
+          const SizedBox(height: 12),
+          ..._todayActivities.map((a) => _buildActivityCard(a, theme)),
 
-            // Yesterday section
-            _buildDateHeader("Yesterday", theme),
-            const SizedBox(height: 12),
-            ..._yesterdayActivities.map((a) => _buildActivityCard(a, theme)),
+          const SizedBox(height: 24),
 
-            const SizedBox(height: 100), // Bottom padding for FAB
-          ],
-        ),
+          // Yesterday section
+          _buildDateHeader("Yesterday", theme),
+          const SizedBox(height: 12),
+          ..._yesterdayActivities.map((a) => _buildActivityCard(a, theme)),
+
+          const SizedBox(height: 100), // Bottom padding for FAB
+        ],
       ),
     );
   }

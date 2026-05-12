@@ -1,23 +1,28 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stockmanagement/src/feature/auth/login_register/bloc/register_event.dart';
-import 'package:stockmanagement/src/feature/auth/login_register/bloc/register_state.dart';
-import 'package:stockmanagement/src/feature/auth/login_register/repository/login_register_repo.dart';
+import 'package:stockmanagement/src/feature/auth/bloc/register/register_event.dart';
+import 'package:stockmanagement/src/feature/auth/bloc/register/register_state.dart';
+import 'package:stockmanagement/src/feature/auth/repository/auth_repository.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
-  RegisterBloc(this.repo) : super(const RegisterInitial()) {
+  RegisterBloc(this.authRepository) : super(const RegisterInitial()) {
     on<RegisterSubmitted>(_onRegisterSubmitted);
     on<AuthCheckStarted>(_onAuthCheckStarted);
   }
 
-  final LoginRegisterRepo repo;
+  final AuthRepository authRepository;
 
   Future<void> _onAuthCheckStarted(
     AuthCheckStarted event,
     Emitter<RegisterState> emit,
   ) async {
-    final user = await repo.getUser();
-    if (user != null) {
-      emit(Authenticated(user: user));
+    final isLoggedIn = await authRepository.isLoggedIn();
+    if (isLoggedIn) {
+      final user = await authRepository.getUser();
+      if (user != null) {
+        emit(Authenticated(user: user));
+      } else {
+        emit(const Unauthenticated());
+      }
     } else {
       emit(const Unauthenticated());
     }
@@ -35,7 +40,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     }
 
     try {
-      await repo.register(
+      await authRepository.register(
         event.fullName,
         event.shopName,
         event.email,

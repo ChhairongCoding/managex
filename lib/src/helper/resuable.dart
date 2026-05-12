@@ -97,8 +97,8 @@ Widget textFieldCustomWidget({
   required TextEditingController controller,
   String? label,
   String? hintText,
-  Icon? suffixIcon,
-  bool? obscureText = false,
+  dynamic suffixIcon,
+  bool? obscureText,
   TextInputType? keyboardType,
   VoidCallback? suffixIconPressed,
   String? Function(String?)? validator,
@@ -113,13 +113,19 @@ Widget textFieldCustomWidget({
         children: [
           TextFormField(
             controller: controller,
-            obscureText: obscureText!,
+            obscureText: obscureText ?? false,
             keyboardType: keyboardType,
             readOnly: readOnly ?? false,
             decoration: InputDecoration(
               contentPadding: EdgeInsets.all(16),
               suffixIcon: suffixIcon != null
-                  ? IconButton(onPressed: suffixIconPressed, icon: suffixIcon)
+                  ? IconButton(
+                      onPressed: suffixIconPressed,
+                      icon: suffixIcon is IconData
+                          ? Icon(suffixIcon)
+                          : suffixIcon,
+                      color: theme.hintColor,
+                    )
                   : null,
               hintText: hintText,
               border: OutlineInputBorder(
@@ -129,12 +135,7 @@ Widget textFieldCustomWidget({
               fillColor: Colors.grey[200],
               hintStyle: TextStyle(color: Colors.grey[500]),
             ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return "Please enter your email";
-              }
-              return null;
-            },
+            validator: validator,
           ),
         ],
       ),

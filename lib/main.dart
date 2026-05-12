@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
-import 'package:stockmanagement/src/core/routes/init_route.dart';
+import 'package:stockmanagement/src/core/routes/route_generator.dart';
 import 'package:stockmanagement/src/core/routes/routers.dart';
 import 'package:stockmanagement/src/core/theme/app_theme.dart';
-import 'package:stockmanagement/src/feature/auth/login_register/bloc/register_bloc.dart';
-import 'package:stockmanagement/src/feature/auth/login_register/repository/login_register_repo.dart';
+import 'package:stockmanagement/src/feature/auth/bloc/register/register_bloc.dart';
+import 'package:stockmanagement/src/feature/auth/repository/auth_repository.dart';
 
 import 'package:stockmanagement/src/feature/inventory/inventory_repo.dart';
 import 'package:stockmanagement/src/feature/inventory/bloc/index.dart';
@@ -36,7 +36,7 @@ class MainApp extends StatelessWidget {
           create: (context) => InventoryBloc(InventoryRepo()),
         ),
         BlocProvider<RegisterBloc>(
-          create: (context) => RegisterBloc(LoginRegisterRepo()),
+          create: (context) => RegisterBloc(AuthRepository()),
         ),
       ],
       child: MaterialApp(
@@ -44,7 +44,7 @@ class MainApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
         initialRoute: Routers.splashPage,
-        routes: initRoute,
+        onGenerateRoute: RouteGenerator.generateRoute,
       ),
     );
   }

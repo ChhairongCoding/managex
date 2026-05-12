@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:stockmanagement/src/core/routes/routers.dart';
 import 'package:stockmanagement/src/feature/app/app_bar.dart';
 import 'package:stockmanagement/src/feature/history/view/history_page.dart';
 import 'package:stockmanagement/src/feature/home/view/home_page.dart';
@@ -95,7 +96,7 @@ class _AppPageState extends State<AppPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => Navigator.pushNamed(context, Routers.scan),
         shape: const CircleBorder(),
         child: const Icon(Icons.qr_code_scanner_outlined),
       ),

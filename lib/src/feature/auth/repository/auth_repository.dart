@@ -2,8 +2,9 @@ import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginRegisterRepo {
+class AuthRepository {
   static const String _userKey = "user";
+  static const String _tokenKey = "token";
 
   Future<bool> register(
     String fullName,
@@ -27,6 +28,8 @@ class LoginRegisterRepo {
       };
 
       await prefs.setString(_userKey, jsonEncode(user));
+      // Save token on register as well to automatically log in
+      await prefs.setString(_tokenKey, "valid_token");
 
       return true;
     } catch (e) {
@@ -41,12 +44,14 @@ class LoginRegisterRepo {
       final userString = prefs.getString(_userKey);
 
       if (userString == null) {
-        throw Exception("User not found");
+        throw Exception("User not found. Please register first.");
       }
 
       final user = jsonDecode(userString);
 
       if (user["email"] == email && user["password"] == password) {
+        // Save token on successful login
+        await prefs.setString(_tokenKey, "valid_token");
         return true;
       }
 
@@ -58,7 +63,7 @@ class LoginRegisterRepo {
 
   Future<void> logout() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.remove(_userKey);
+    await prefs.remove(_tokenKey);
   }
 
   Future<Map<String, dynamic>?> getUser() async {
@@ -72,4 +77,15 @@ class LoginRegisterRepo {
 
     return jsonDecode(userString);
   }
+
+  Future<bool> isLoggedIn() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.containsKey(_tokenKey);
+  }
+
+  Future<void> clearToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_tokenKey);
+  }
 }
+

@@ -96,7 +96,7 @@ class _ShowAddProductModalWidgetState extends State<ShowAddProductModalWidget> {
                             borderRadius: BorderRadius.circular(20),
                             color: Theme.of(
                               context,
-                            ).colorScheme.primary.withOpacity(0.04),
+                            ).colorScheme.primary.withValues(alpha: 0.04),
                           ),
                         ),
                       ),

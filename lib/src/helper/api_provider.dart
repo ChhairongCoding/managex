@@ -69,4 +69,18 @@ class ApiProvider {
       throw Exception(e.message);
     }
   }
+
+  Future<Response> uploadImage(String url, String filePath) async {
+    try {
+      final formData = FormData.fromMap({
+        'file': await MultipartFile.fromFile(
+          filePath,
+          filename: filePath.split('/').last,
+        ),
+      });
+      return await _dio.post(url, data: formData);
+    } on DioException catch (e) {
+      throw Exception(e.message);
+    }
+  }
 }

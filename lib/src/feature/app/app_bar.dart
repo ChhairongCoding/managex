@@ -6,6 +6,7 @@ PreferredSizeWidget appBar(BuildContext context, {bool isScrolled = false}) {
   final primaryColor = Theme.of(context).colorScheme.primary;
 
   return AppBar(
+    automaticallyImplyLeading: false,
     backgroundColor: Colors.transparent,
     elevation: isScrolled ? 4.0 : 0.0,
     titleSpacing: 20,
@@ -22,7 +23,7 @@ PreferredSizeWidget appBar(BuildContext context, {bool isScrolled = false}) {
         fontWeight: FontWeight.bold,
         fontSize: 22,
       ),
-      child: const Text("ManageX"),
+      child: Image.asset("assets/images/logo_text_black.png", height: 30),
     ),
     actions: [
       TweenAnimationBuilder<Color?>(

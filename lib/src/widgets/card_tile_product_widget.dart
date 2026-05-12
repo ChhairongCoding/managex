@@ -18,7 +18,7 @@ Container cardTileProductWidget(ProductModel product, ThemeData theme) {
             errorBuilder: (context, error, stackTrace) => Container(
               height: 100,
               width: 100,
-              color: theme.colorScheme.surfaceVariant,
+              color: theme.colorScheme.onSurfaceVariant,
               child: Icon(
                 Icons.broken_image_outlined,
                 color: theme.colorScheme.onSurfaceVariant,
@@ -29,7 +29,7 @@ Container cardTileProductWidget(ProductModel product, ThemeData theme) {
               return Container(
                 height: 100,
                 width: 100,
-                color: theme.colorScheme.surfaceVariant,
+                color: theme.colorScheme.onSurfaceVariant,
                 child: const Center(
                   child: CircularProgressIndicator(strokeWidth: 2),
                 ),

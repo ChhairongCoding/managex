@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 import 'package:stockmanagement/src/feature/app/app_page.dart';
-import 'package:stockmanagement/src/feature/home/view/home_page.dart';
 
 class VerifyOtpPage extends StatefulWidget {
   const VerifyOtpPage({super.key});
@@ -73,75 +72,95 @@ class _VerifyOtpPageState extends State<VerifyOtpPage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(),
-      body: Container(
-        padding: EdgeInsets.all(20),
-        child: Column(
-          spacing: 25,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Column(
-              spacing: 5,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  "ManageX",
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    color: theme.hintColor,
-                  ),
-                ),
-                Text(
-                  "Indentify Verification",
-                  style: theme.textTheme.headlineLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: theme.colorScheme.onSurfaceVariant,
-                  ),
-                ),
-              ],
-            ),
+      appBar: _buildAppBar(theme, context),
+      body: _buildBody(theme),
+    );
+  }
 
-            Text(
-              "We sent a secure code to your registered email address. Please enter the code below to access the store",
-              style: theme.textTheme.labelLarge?.copyWith(
-                color: theme.hintColor,
+  AppBar _buildAppBar(ThemeData theme, BuildContext context) {
+    return AppBar(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      leading: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          decoration: BoxDecoration(
+            color: theme.hintColor.withValues(alpha: 0.05),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios_new,
+              color: theme.colorScheme.onSurface,
+            ),
+            onPressed: () => Navigator.pop(context),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Container _buildBody(ThemeData theme) {
+    return Container(
+      padding: EdgeInsets.all(20),
+      child: Column(
+        spacing: 25,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Column(
+            spacing: 5,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset("assets/images/logo_text_black.png", height: 40),
+              const SizedBox(height: 5),
+              Text(
+                "Indentify Verification",
+                style: theme.textTheme.headlineLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
               ),
-              textAlign: TextAlign.center,
-            ),
+            ],
+          ),
 
-            buildPinPut(theme),
+          Text(
+            "We sent a secure code to your registered email address. Please enter the code below to access the store",
+            style: theme.textTheme.labelLarge?.copyWith(color: theme.hintColor),
+            textAlign: TextAlign.center,
+          ),
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _secondsRemaining == 0
-                    ? TextButton.icon(
-                        onPressed: () {},
-                        icon: Icon(Icons.refresh, color: theme.hintColor),
-                        label: Text(
-                          "Resend Code",
-                          style: theme.textTheme.labelLarge?.copyWith(
-                            color: theme.hintColor,
-                          ),
-                        ),
-                      )
-                    : _secondsRemaining == 0
-                    ? Text(
+          buildPinPut(theme),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _secondsRemaining == 0
+                  ? TextButton.icon(
+                      onPressed: () {},
+                      icon: Icon(Icons.refresh, color: theme.hintColor),
+                      label: Text(
                         "Resend Code",
                         style: theme.textTheme.labelLarge?.copyWith(
                           color: theme.hintColor,
                         ),
-                      )
-                    : Text(
-                        "Expires in ${_secondsRemaining} seconds",
-                        style: theme.textTheme.labelLarge?.copyWith(
-                          color: theme.hintColor,
-                        ),
                       ),
-              ],
-            ),
-          ],
-        ),
+                    )
+                  : _secondsRemaining == 0
+                  ? Text(
+                      "Resend Code",
+                      style: theme.textTheme.labelLarge?.copyWith(
+                        color: theme.hintColor,
+                      ),
+                    )
+                  : Text(
+                      "Expires in ${_secondsRemaining} seconds",
+                      style: theme.textTheme.labelLarge?.copyWith(
+                        color: theme.hintColor,
+                      ),
+                    ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -165,9 +184,10 @@ class _VerifyOtpPageState extends State<VerifyOtpPage> {
   }
 
   void verfiyPin() {
-    Navigator.push(
+    Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (context) => const AppPage()),
+      (route) => false,
     );
   }
 }

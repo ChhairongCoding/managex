@@ -24,6 +24,8 @@ dependencies:
   pinput: ^6.0.2
   dio: ^5.9.2
   shared_preferences: ^2.5.5
+  mobile_scanner: ^7.2.0
+  cached_network_image: ^3.4.1
 
 
 dev_dependencies:

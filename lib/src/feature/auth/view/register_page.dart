@@ -19,6 +19,8 @@ class _RegisterPageState extends State<RegisterPage> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
 
+  bool isPasswordVisible = true;
+
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -37,6 +39,7 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        scrolledUnderElevation: 0,
         elevation: 0,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
@@ -54,10 +57,13 @@ class _RegisterPageState extends State<RegisterPage> {
     return BlocConsumer<RegisterBloc, RegisterState>(
       listener: (context, state) {
         if (state is RegisterSuccess) {
-          Navigator.pushNamed(context, Routers.appPage);
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            Routers.appPage,
+            (route) => false,
+          );
         }
         if (state is RegisterError) {
-          print(state.message);
           ScaffoldMessenger.of(
             context,
           ).showSnackBar(SnackBar(content: Text(state.message)));
@@ -152,6 +158,17 @@ class _RegisterPageState extends State<RegisterPage> {
                       context: context,
                       label: "Password",
                       hintText: "********",
+                      obscureText: isPasswordVisible,
+                      suffixIcon: Icon(
+                        isPasswordVisible
+                            ? Icons.visibility_rounded
+                            : Icons.visibility_off_rounded,
+                      ),
+                      suffixIconPressed: () {
+                        setState(() {
+                          isPasswordVisible = !isPasswordVisible;
+                        });
+                      },
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return "Please enter your password";
@@ -169,6 +186,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       context: context,
                       label: "Confirm Password",
                       hintText: "********",
+                      obscureText: isPasswordVisible,
+
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return "Please confirm password";
@@ -213,7 +232,11 @@ class _RegisterPageState extends State<RegisterPage> {
                               );
 
                               if (state is RegisterSuccess) {
-                                Navigator.pushNamed(context, Routers.appPage);
+                                Navigator.pushNamedAndRemoveUntil(
+                                  context,
+                                  Routers.appPage,
+                                  (route) => false,
+                                );
                               }
                             },
                             child: state is RegisterLoading
