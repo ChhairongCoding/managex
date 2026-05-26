@@ -40,7 +40,7 @@ class InventoryPage extends StatelessWidget {
 
             SizedBox(height: 6),
 
-            ItemCardInventoryWidget(theme: theme),
+            ItemTileInventoryWidget(theme: theme),
           ],
         ),
       ),

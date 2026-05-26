@@ -14,6 +14,7 @@ class _ScanPageState extends State<ScanPage> {
   final MobileScannerController controller = MobileScannerController(
     torchEnabled: false,
     facing: CameraFacing.back,
+    autoStart: false,
   );
 
   bool isScanned = false;

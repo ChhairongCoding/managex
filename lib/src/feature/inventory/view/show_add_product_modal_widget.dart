@@ -32,6 +32,7 @@ class _ShowAddProductModalWidgetState extends State<ShowAddProductModalWidget> {
   late final TextEditingController _productVariantController;
   late final TextEditingController _productTypeController;
 
+
   int _newStock = 0;
   int _currentStock = 0;
 
@@ -57,6 +58,10 @@ class _ShowAddProductModalWidgetState extends State<ShowAddProductModalWidget> {
     _productVariantController = TextEditingController(
       text: widget.product?.category.toString() ?? "",
     );
+
+    _productTypeController = TextEditingController(
+  text: widget.product?.type ?? "",
+);
   }
 
   @override
@@ -349,7 +354,25 @@ class _ShowAddProductModalWidgetState extends State<ShowAddProductModalWidget> {
                               ),
                               onPressed: () {
                                 context.read<InventoryBloc>().add(
-                                  UpdateInventoryEvent(inventory: InventoryModel(id: widget.product!.id, name: _productNameController.text, price: double.parse(_productPriceController.text), quantity: int.parse(_productStockController.text), isLowStock: int.parse(_productLowStockController.text) > 0, productType: _productTypeController.text), key: widget.product!.id)
+                                  UpdateInventoryEvent(
+                                    inventory: InventoryModel(
+                                      id: widget.product!.id,
+                                      name: _productNameController.text,
+                                      price: double.parse(
+                                        _productPriceController.text,
+                                      ),
+                                      quantity: int.parse(
+                                        _productStockController.text,
+                                      ),
+                                      isLowStock:
+                                          int.parse(
+                                            _productLowStockController.text,
+                                          ) >
+                                          0,
+                                      productType: _productTypeController.text,
+                                    ),
+                                    key: widget.product!.id,
+                                  ),
                                 );
 
                                 Navigator.pop(context);

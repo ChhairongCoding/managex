@@ -7,6 +7,7 @@ class ProductModel {
   final int qty;
   final int inStock;
   final String imageUrl;
+  final String? type;
 
   ProductModel({
     required this.id,
@@ -17,6 +18,7 @@ class ProductModel {
     required this.qty,
     required this.inStock,
     required this.imageUrl,
+     this.type,
   });
 
   factory ProductModel.fromMap(Map<String, dynamic> map) {
@@ -29,6 +31,7 @@ class ProductModel {
       qty: map['qty'],
       inStock: map['inStock'],
       imageUrl: map['imageUrl'],
+      type: map['type'],
     );
   }
 
@@ -42,6 +45,7 @@ class ProductModel {
       'qty': qty,
       'inStock': inStock,
       'imageUrl': imageUrl,
+      'type': type
     };
   }
 }

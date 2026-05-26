@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:managex/src/feature/inventory/view/show_add_product_modal_widget.dart';
+import 'package:flutter/services.dart';
 
 PreferredSizeWidget appBar(BuildContext context, {bool isScrolled = false}) {
   final primaryColor = Theme.of(context).colorScheme.primary;
 
   return AppBar(
+    systemOverlayStyle: SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness:
+          isScrolled ? Brightness.light : Brightness.dark, // icons color
+      statusBarBrightness:
+          isScrolled ? Brightness.dark : Brightness.light,  // iOS
+    ),
     automaticallyImplyLeading: false,
-    backgroundColor: Colors.transparent,
     elevation: isScrolled ? 4.0 : 0.0,
     titleSpacing: 20,
     flexibleSpace: AnimatedContainer(

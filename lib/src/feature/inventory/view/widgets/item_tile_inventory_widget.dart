@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ItemCardInventoryWidget extends StatelessWidget {
-  const ItemCardInventoryWidget({super.key, required this.theme});
+class ItemTileInventoryWidget extends StatelessWidget {
+  const ItemTileInventoryWidget({super.key, required this.theme});
 
   final ThemeData theme;
 

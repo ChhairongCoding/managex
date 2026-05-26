@@ -30,6 +30,7 @@ class _AppPageState extends State<AppPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: _selectedIndex == 0 || _selectedIndex == 1
           ? appBar(context, isScrolled: _isScrolled)
           : null,
