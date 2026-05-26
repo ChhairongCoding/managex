@@ -54,7 +54,7 @@ class _ProductScanModalState extends State<ProductScanModal> {
               ),
             ),
             child: Text(
-              "Sell",
+              "Sell Items",
               style: theme.textTheme.titleMedium?.copyWith(
                 color: theme.colorScheme.surface,
               ),

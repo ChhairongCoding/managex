@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:stockmanagement/src/feature/home/model/product_model.dart';
 import 'package:stockmanagement/src/feature/home/view/widgets/item_cart_widget.dart';
+import 'package:stockmanagement/src/feature/inventory/view/show_add_product_modal_widget.dart';
 import 'package:stockmanagement/src/widgets/skeleton_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -74,40 +75,55 @@ class _HomePageState extends State<HomePage> {
     // Dummy Products
     final List<ProductModel> products = [
       ProductModel(
-        title: "Chrono-X Titanium",
+        id: 1,
+        name: "Chrono-X Titanium",
         sku: "CTX-2024-SILVER",
+        category: "Electronics",
+        price: 1200.0,
         qty: 2,
         inStock: 42,
         imageUrl:
             "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=2000&auto=format&fit=crop",
       ),
       ProductModel(
-        title: "Sonic-Bose Pro",
+        id: 2,
+        name: "Sonic-Bose Pro",
         sku: "SB-700-BLACK",
+        category: "Electronics",
+        price: 1200.0,
         qty: 5,
         inStock: 08,
         imageUrl:
             "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=2000&auto=format&fit=crop",
       ),
       ProductModel(
-        title: "MacBook Pro M3 Max",
+        id: 3,
+        name: "MacBook Pro M3 Max",
         sku: "MBP-14-M3-64GB",
+        category: "Electronics",
+        price: 1200.0,
         qty: 12,
         inStock: 42,
         imageUrl:
             "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=2000&auto=format&fit=crop",
       ),
       ProductModel(
-        title: "OLED Bravia 65\"",
+        id: 4,
+        name: "OLED Bravia 65\"",
         sku: "SONY-A95L-65",
+        category: "Electronics",
+        price: 1200.0,
         qty: 8,
         inStock: 08,
         imageUrl:
             "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?q=80&w=2000&auto=format&fit=crop",
       ),
       ProductModel(
-        title: "ErgoChair Pro",
+        id: 5,
+        name: "ErgoChair Pro",
         sku: "EC-2024-GREY",
+        category: "Electronics",
+        price: 1200.0,
         qty: 15,
         inStock: 25,
         imageUrl:
@@ -229,7 +245,7 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      product.title,
+                      product.name,
                       style: theme.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -253,7 +269,14 @@ class _HomePageState extends State<HomePage> {
                     ),
                     const SizedBox(height: 8),
                     InkWell(
-                      onTap: () {},
+                      onTap: () => showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (context) => ShowAddProductModalWidget(
+                          productId: 1,
+                          product: product,
+                        ),
+                      ),
                       child: Row(
                         children: [
                           Icon(
@@ -326,7 +349,7 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      product.title,
+                      product.name,
                       style: theme.textTheme.titleSmall?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),

@@ -1,9 +1,8 @@
 class InventoryModel {
   final int id;
   final String name;
-  final String description;
   final double price;
-  final int quantity;
+  int quantity;
   final bool isLowStock;
   final String productType;
   final Map<String, int>? variant;
@@ -11,7 +10,6 @@ class InventoryModel {
   InventoryModel({
     required this.id,
     required this.name,
-    required this.description,
     required this.price,
     required this.quantity,
     required this.isLowStock,
@@ -23,7 +21,6 @@ class InventoryModel {
     return InventoryModel(
       id: map['id'],
       name: map['name'],
-      description: map['description'],
       price: map['price'],
       quantity: map['quantity'],
       isLowStock: map['isLowStock'],
@@ -36,12 +33,15 @@ class InventoryModel {
     return {
       'id': id,
       'name': name,
-      'description': description,
       'price': price,
       'quantity': quantity,
       'isLowStock': isLowStock,
       'variant': variant,
     };
+  }
+
+  InventoryModel copyWith({required int quantity}) {
+    return copyWith(quantity: quantity);
   }
 }
 

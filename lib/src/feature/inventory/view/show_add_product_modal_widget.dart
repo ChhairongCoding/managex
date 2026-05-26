@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:stockmanagement/src/feature/home/model/product_model.dart';
 import 'package:stockmanagement/src/feature/inventory/bloc/index.dart';
 import 'package:stockmanagement/src/feature/inventory/model/inventory_model.dart';
+import 'package:stockmanagement/src/feature/scan/view/scan_page.dart';
 import 'package:stockmanagement/src/widgets/text_field_custom_widget.dart';
 
 class ShowAddProductModalWidget extends StatefulWidget {
-  const ShowAddProductModalWidget({super.key});
+  final int? productId;
+  final ProductModel? product;
+  final bool isUpdate;
+  const ShowAddProductModalWidget({
+    super.key,
+    this.productId,
+    this.product,
+    this.isUpdate = false,
+  });
 
   @override
   State<ShowAddProductModalWidget> createState() =>
@@ -14,22 +24,50 @@ class ShowAddProductModalWidget extends StatefulWidget {
 
 class _ShowAddProductModalWidgetState extends State<ShowAddProductModalWidget> {
   final _formKey = GlobalKey<FormState>();
-  final _productNameController = TextEditingController();
-  final _productDescriptionController = TextEditingController();
-  final _productPriceController = TextEditingController();
-  final _productStockController = TextEditingController();
-  final _productLowStockController = TextEditingController();
-  final _productVariantController = TextEditingController();
-  final _productTypeController = TextEditingController();
+  late final TextEditingController _productNameController;
+  late final TextEditingController _productSKUController;
+  late final TextEditingController _productPriceController;
+  late final TextEditingController _productStockController;
+  late final TextEditingController _productLowStockController;
+  late final TextEditingController _productVariantController;
+  late final TextEditingController _productTypeController;
+
+  int _newStock = 0;
+  int _currentStock = 0;
+
+  bool isUpdating = true;
+  @override
+  void initState() {
+    super.initState();
+    _productNameController = TextEditingController(
+      text: widget.product?.name ?? "",
+    );
+    _productSKUController = TextEditingController(
+      text: widget.product?.sku ?? "",
+    );
+    _productPriceController = TextEditingController(
+      text: widget.product?.price.toString() ?? "",
+    );
+    _productStockController = TextEditingController(
+      text: widget.product?.qty.toString() ?? "",
+    );
+    _productLowStockController = TextEditingController(
+      text: widget.product?.inStock.toString() ?? "",
+    );
+    _productVariantController = TextEditingController(
+      text: widget.product?.category.toString() ?? "",
+    );
+  }
 
   @override
   void dispose() {
     _productNameController.dispose();
-    _productDescriptionController.dispose();
+    _productSKUController.dispose();
     _productPriceController.dispose();
     _productStockController.dispose();
     _productLowStockController.dispose();
     _productVariantController.dispose();
+    _productTypeController.dispose();
     super.dispose();
   }
 
@@ -73,7 +111,9 @@ class _ShowAddProductModalWidgetState extends State<ShowAddProductModalWidget> {
                   ),
                   Spacer(),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => const ScanPage()),
+                    ),
                     icon: Icon(
                       Icons.qr_code_scanner,
                       color: Theme.of(context).primaryColor,
@@ -214,6 +254,58 @@ class _ShowAddProductModalWidgetState extends State<ShowAddProductModalWidget> {
                               ],
                             ),
                           ),
+                          SizedBox(height: 10),
+                          Container(
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: theme.colorScheme.primaryContainer
+                                  .withValues(alpha: 0.1),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      "Current Stock",
+                                      style: theme.textTheme.titleMedium
+                                          ?.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                    ),
+                                    Spacer(),
+                                    Text(
+                                      "$_currentStock",
+                                      style: theme.textTheme.titleMedium
+                                          ?.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 8),
+                                Row(
+                                  children: [
+                                    Text(
+                                      "New Level Restock: ",
+                                      style: theme.textTheme.titleMedium
+                                          ?.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                    ),
+                                    Spacer(),
+                                    Text(
+                                      "$_newStock",
+                                      style: theme.textTheme.titleMedium
+                                          ?.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -221,47 +313,60 @@ class _ShowAddProductModalWidgetState extends State<ShowAddProductModalWidget> {
                       bottom: 30,
                       left: 0,
                       right: 0,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          fixedSize: Size(double.infinity, 50),
-                        ),
-                        onPressed: () {
-                          context.read<InventoryBloc>().add(
-                            AddInventoryEvent(
-                              inventory: InventoryModel(
-                                id: 0,
-                                name: _productNameController.text,
-                                description: _productDescriptionController.text,
-                                price: double.parse(
-                                  _productPriceController.text,
-                                ),
-                                quantity: int.parse(
-                                  _productStockController.text,
-                                ),
-                                isLowStock:
-                                    int.parse(_productLowStockController.text) >
-                                    0,
-                                productType: _productTypeController.text,
+                      child: isUpdating
+                          ? ElevatedButton.icon(
+                              style: ElevatedButton.styleFrom(
+                                fixedSize: Size(double.infinity, 50),
                               ),
-                            ),
-                          );
+                              onPressed: () {
+                                context.read<InventoryBloc>().add(
+                                  AddInventoryEvent(
+                                    inventory: InventoryModel(
+                                      id: 0,
+                                      name: _productNameController.text,
+                                      price: double.parse(
+                                        _productPriceController.text,
+                                      ),
+                                      quantity: int.parse(
+                                        _productStockController.text,
+                                      ),
+                                      isLowStock:
+                                          int.parse(
+                                            _productLowStockController.text,
+                                          ) >
+                                          0,
+                                      productType: _productTypeController.text,
+                                    ),
+                                  ),
+                                );
+                              },
+                              icon: Icon(Icons.check_box),
+                              label: Text("Confirm Restock"),
+                            )
+                          : ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                fixedSize: Size(double.infinity, 50),
+                              ),
+                              onPressed: () {
+                                context.read<InventoryBloc>().add(
+                                  UpdateInventoryEvent(inventory: InventoryModel(id: widget.product!.id, name: _productNameController.text, price: double.parse(_productPriceController.text), quantity: int.parse(_productStockController.text), isLowStock: int.parse(_productLowStockController.text) > 0, productType: _productTypeController.text), key: widget.product!.id)
+                                );
 
-                          Navigator.pop(context);
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          spacing: 5,
-                          children: [
-                            Icon(Icons.add_circle),
-                            Text(
-                              "Add Product",
-                              style: theme.textTheme.titleMedium?.copyWith(
-                                color: Colors.white,
+                                Navigator.pop(context);
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                spacing: 5,
+                                children: [
+                                  Icon(Icons.add_circle),
+                                  Text(
+                                    "Add Product",
+                                    style: theme.textTheme.titleMedium
+                                        ?.copyWith(color: Colors.white),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
                     ),
                   ],
                 ),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:stockmanagement/src/feature/inventory/model/inventory_model.dart';
 
 abstract class InventoryEvent {}
@@ -33,4 +35,38 @@ class FilterInventoryEvent extends InventoryEvent {
   final String name;
 
   FilterInventoryEvent({required this.name});
+}
+
+class UpdateProductImageEvent extends InventoryEvent {
+  final File image;
+  final int key;
+
+  UpdateProductImageEvent({required this.image, required this.key});
+}
+
+class ManualUpdateProductEvent extends InventoryEvent {
+  final int key;
+  final int quantity;
+  final String type;
+  final String description;
+  final int lowStockThreshold;
+  final double price;
+  final File imagePath;
+
+  ManualUpdateProductEvent({
+    required this.key,
+    required this.quantity,
+    required this.type,
+    required this.description,
+    required this.lowStockThreshold,
+    required this.price,
+    required this.imagePath,
+  });
+}
+
+class SellInventoryEvent extends InventoryEvent {
+  final int key;
+  final int quantity;
+
+  SellInventoryEvent({required this.key, required this.quantity});
 }

@@ -66,5 +66,34 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
         emit(InventoryError(message: e.toString()));
       }
     });
+
+    // on<UpdateProductImageEvent>((event, emit) async {
+    //   try {
+    //     await _inventoryRepo.updateProductImage(event.key, event.image);
+    //     emit(ImageUpdatedState(imagePath: event.image.path));
+    //   } catch (e) {
+    //     emit(InventoryError(message: e.toString()));
+    //   }
+    // });
+
+    on<ManualUpdateProductEvent>((event, emit) async {
+      try {
+        if (state is InventoryLoaded) {
+          await _inventoryRepo.manualUpdateProduct(
+            key: event.key,
+
+            quantity: event.quantity,
+            price: event.price,
+            type: event.type,
+            description: event.description,
+            lowStockThreshold: event.lowStockThreshold,
+            imagePath: event.imagePath,
+          );
+          emit(InventoryOperationSuccess(message: "Product updated"));
+        }
+      } catch (e) {
+        emit(InventoryError(message: e.toString()));
+      }
+    });
   }
 }

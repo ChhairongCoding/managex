@@ -50,7 +50,7 @@ Container cardProductRecentActivityWidget(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      product.title,
+                      product.name,
                       maxLines: 2,
 
                       style: theme.textTheme.titleMedium?.copyWith(height: 1.1),

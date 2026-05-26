@@ -23,6 +23,24 @@ class InventoryLoaded extends InventoryState {
   List<Object?> get props => [inventory];
 }
 
+class ImageUpdatedState extends InventoryState {
+  final String imagePath;
+
+  ImageUpdatedState({required this.imagePath});
+
+  @override
+  List<Object?> get props => [imagePath];
+}
+
+class InventoryOperationSuccess extends InventoryState {
+  final String message;
+
+  InventoryOperationSuccess({required this.message});
+
+  @override
+  List<Object?> get props => [message];
+}
+
 class InventoryError extends InventoryState {
   final String message;
 
