@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stockmanagement/src/core/routes/routers.dart';
-import 'package:stockmanagement/src/helper/resuable.dart';
+import 'package:managex/src/core/routes/routers.dart';
+import 'package:managex/src/helper/resuable.dart';
 
 import '../bloc/index.dart';
 

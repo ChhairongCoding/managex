@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
-import 'package:stockmanagement/src/feature/app/app_page.dart';
+import 'package:managex/src/feature/app/app_page.dart';
 
 class VerifyOtpPage extends StatefulWidget {
   const VerifyOtpPage({super.key});

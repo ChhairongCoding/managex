@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:stockmanagement/src/feature/inventory/model/inventory_model.dart';
+import 'package:managex/src/feature/inventory/model/inventory_model.dart';
 
 abstract class InventoryState extends Equatable {
   @override

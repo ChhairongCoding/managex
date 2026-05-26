@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stockmanagement/src/feature/auth/bloc/login/login_event.dart';
-import 'package:stockmanagement/src/feature/auth/bloc/login/login_state.dart';
-import 'package:stockmanagement/src/feature/auth/repository/auth_repository.dart';
+import 'package:managex/src/feature/auth/bloc/login/login_event.dart';
+import 'package:managex/src/feature/auth/bloc/login/login_state.dart';
+import 'package:managex/src/feature/auth/repository/auth_repository.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final AuthRepository authRepository;

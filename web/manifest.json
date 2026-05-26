@@ -1,6 +1,6 @@
 {
-    "name": "stockmanagement",
-    "short_name": "stockmanagement",
+    "name": "managex",
+    "short_name": "managex",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

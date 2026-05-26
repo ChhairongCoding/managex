@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stockmanagement/src/feature/home/model/product_model.dart';
+import 'package:managex/src/feature/home/model/product_model.dart';
 
 Container cardTileProductWidget(ProductModel product, ThemeData theme) {
   return Container(

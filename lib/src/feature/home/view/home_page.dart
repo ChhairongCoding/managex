@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:stockmanagement/src/feature/home/model/product_model.dart';
-import 'package:stockmanagement/src/feature/home/view/widgets/item_cart_widget.dart';
-import 'package:stockmanagement/src/feature/inventory/view/show_add_product_modal_widget.dart';
-import 'package:stockmanagement/src/widgets/skeleton_widget.dart';
+import 'package:managex/src/feature/home/model/product_model.dart';
+import 'package:managex/src/feature/home/view/widgets/item_cart_widget.dart';
+import 'package:managex/src/feature/inventory/view/show_add_product_modal_widget.dart';
+import 'package:managex/src/widgets/skeleton_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

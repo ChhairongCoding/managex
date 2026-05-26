@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:async';
-import 'package:stockmanagement/src/core/theme/app_colors.dart';
-import 'package:stockmanagement/src/feature/app/app_page.dart';
-import 'package:stockmanagement/src/feature/auth/bloc/register/register_bloc.dart';
-import 'package:stockmanagement/src/feature/auth/bloc/register/register_event.dart';
-import 'package:stockmanagement/src/feature/auth/bloc/register/register_state.dart';
-import 'package:stockmanagement/src/feature/auth/view/login_page.dart';
+import 'package:managex/src/core/theme/app_colors.dart';
+import 'package:managex/src/feature/app/app_page.dart';
+import 'package:managex/src/feature/auth/bloc/register/register_bloc.dart';
+import 'package:managex/src/feature/auth/bloc/register/register_event.dart';
+import 'package:managex/src/feature/auth/bloc/register/register_state.dart';
+import 'package:managex/src/feature/auth/view/login_page.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:stockmanagement/src/feature/scan/view/widgets/product_scan_modal.dart';
-import 'package:stockmanagement/src/feature/scan/view/widgets/scanner_overlay_painter_widget.dart';
+import 'package:managex/src/feature/scan/view/widgets/product_scan_modal.dart';
+import 'package:managex/src/feature/scan/view/widgets/scanner_overlay_painter_widget.dart';
 
 class ScanPage extends StatefulWidget {
   const ScanPage({super.key});

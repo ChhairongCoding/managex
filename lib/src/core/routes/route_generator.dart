@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:stockmanagement/src/feature/app/app_page.dart';
-import 'package:stockmanagement/src/feature/auth/view/login_page.dart';
-import 'package:stockmanagement/src/feature/auth/view/register_page.dart';
-import 'package:stockmanagement/src/feature/auth/view/verify_otp_page.dart';
-import 'package:stockmanagement/src/feature/history/view/history_page.dart';
-import 'package:stockmanagement/src/feature/home/view/home_page.dart';
-import 'package:stockmanagement/src/feature/inventory/view/inventory_page.dart';
-import 'package:stockmanagement/src/feature/scan/view/scan_page.dart';
-import 'package:stockmanagement/src/feature/setting/view/setting_page.dart';
-import 'package:stockmanagement/src/feature/splash/splash_page.dart';
+import 'package:managex/src/feature/app/app_page.dart';
+import 'package:managex/src/feature/auth/view/login_page.dart';
+import 'package:managex/src/feature/auth/view/register_page.dart';
+import 'package:managex/src/feature/auth/view/verify_otp_page.dart';
+import 'package:managex/src/feature/history/view/history_page.dart';
+import 'package:managex/src/feature/home/view/home_page.dart';
+import 'package:managex/src/feature/inventory/view/inventory_page.dart';
+import 'package:managex/src/feature/scan/view/scan_page.dart';
+import 'package:managex/src/feature/setting/view/setting_page.dart';
+import 'package:managex/src/feature/splash/splash_page.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {

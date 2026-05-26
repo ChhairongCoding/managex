@@ -1,4 +1,4 @@
-import 'package:stockmanagement/src/feature/auth/repository/auth_repository.dart';
+import 'package:managex/src/feature/auth/repository/auth_repository.dart';
 
 class SettingRepository {
   Future<void> logout() async {

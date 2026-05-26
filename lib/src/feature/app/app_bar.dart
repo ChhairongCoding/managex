@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:stockmanagement/src/feature/inventory/view/show_add_product_modal_widget.dart';
+import 'package:managex/src/feature/inventory/view/show_add_product_modal_widget.dart';
 
 PreferredSizeWidget appBar(BuildContext context, {bool isScrolled = false}) {
   final primaryColor = Theme.of(context).colorScheme.primary;

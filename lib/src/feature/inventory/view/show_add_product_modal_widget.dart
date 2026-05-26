@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stockmanagement/src/feature/home/model/product_model.dart';
-import 'package:stockmanagement/src/feature/inventory/bloc/index.dart';
-import 'package:stockmanagement/src/feature/inventory/model/inventory_model.dart';
-import 'package:stockmanagement/src/feature/scan/view/scan_page.dart';
-import 'package:stockmanagement/src/widgets/text_field_custom_widget.dart';
+import 'package:managex/src/feature/home/model/product_model.dart';
+import 'package:managex/src/feature/inventory/bloc/index.dart';
+import 'package:managex/src/feature/inventory/model/inventory_model.dart';
+import 'package:managex/src/feature/scan/view/scan_page.dart';
+import 'package:managex/src/widgets/text_field_custom_widget.dart';
 
 class ShowAddProductModalWidget extends StatefulWidget {
   final int? productId;

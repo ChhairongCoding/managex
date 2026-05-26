@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:stockmanagement/src/feature/inventory/inventory_repo.dart';
-import 'package:stockmanagement/src/feature/inventory/model/inventory_model.dart';
+import 'package:managex/src/feature/inventory/inventory_repo.dart';
+import 'package:managex/src/feature/inventory/model/inventory_model.dart';
 
 import 'index.dart';
 

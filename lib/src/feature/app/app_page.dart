@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:stockmanagement/src/core/routes/routers.dart';
-import 'package:stockmanagement/src/feature/app/app_bar.dart';
-import 'package:stockmanagement/src/feature/history/view/history_page.dart';
-import 'package:stockmanagement/src/feature/home/view/home_page.dart';
-import 'package:stockmanagement/src/feature/inventory/view/inventory_page.dart';
-import 'package:stockmanagement/src/feature/scan/view/scan_page.dart';
-import 'package:stockmanagement/src/feature/setting/view/setting_page.dart';
+import 'package:managex/src/core/routes/routers.dart';
+import 'package:managex/src/feature/app/app_bar.dart';
+import 'package:managex/src/feature/history/view/history_page.dart';
+import 'package:managex/src/feature/home/view/home_page.dart';
+import 'package:managex/src/feature/inventory/view/inventory_page.dart';
+import 'package:managex/src/feature/scan/view/scan_page.dart';
+import 'package:managex/src/feature/setting/view/setting_page.dart';
 
 class AppPage extends StatefulWidget {
   const AppPage({super.key});

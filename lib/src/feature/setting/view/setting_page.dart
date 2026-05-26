@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stockmanagement/src/feature/auth/view/login_page.dart';
-import 'package:stockmanagement/src/feature/setting/bloc/setting_bloc.dart';
-import 'package:stockmanagement/src/feature/setting/bloc/setting_event.dart';
-import 'package:stockmanagement/src/feature/setting/bloc/setting_state.dart';
-import 'package:stockmanagement/src/feature/auth/repository/auth_repository.dart';
+import 'package:managex/src/feature/auth/view/login_page.dart';
+import 'package:managex/src/feature/setting/bloc/setting_bloc.dart';
+import 'package:managex/src/feature/setting/bloc/setting_event.dart';
+import 'package:managex/src/feature/setting/bloc/setting_state.dart';
+import 'package:managex/src/feature/auth/repository/auth_repository.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});

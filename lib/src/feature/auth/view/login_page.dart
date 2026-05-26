@@ -1,12 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stockmanagement/src/core/routes/routers.dart';
-import 'package:stockmanagement/src/feature/auth/bloc/login/login_bloc.dart';
-import 'package:stockmanagement/src/feature/auth/bloc/login/login_event.dart';
-import 'package:stockmanagement/src/feature/auth/bloc/login/login_state.dart';
-import 'package:stockmanagement/src/feature/auth/repository/auth_repository.dart';
-import 'package:stockmanagement/src/helper/resuable.dart';
+import 'package:managex/src/core/routes/routers.dart';
+import 'package:managex/src/feature/auth/bloc/login/login_bloc.dart';
+import 'package:managex/src/feature/auth/bloc/login/login_event.dart';
+import 'package:managex/src/feature/auth/bloc/login/login_state.dart';
+import 'package:managex/src/feature/auth/repository/auth_repository.dart';
+import 'package:managex/src/helper/resuable.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

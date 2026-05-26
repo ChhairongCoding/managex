@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:hive/hive.dart';
-import 'package:stockmanagement/src/feature/inventory/model/inventory_model.dart';
+import 'package:managex/src/feature/inventory/model/inventory_model.dart';
 
 class InventoryRepo {
   final Box _box = Hive.box("inventory");
