@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:managex/src/feature/inventory/view/widgets/item_card_inventory_widget.dart';
+import 'package:managex/src/feature/inventory/view/widgets/item_tile_inventory_widget.dart';
 
 class InventoryPage extends StatelessWidget {
   const InventoryPage({super.key});

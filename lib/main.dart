@@ -12,10 +12,17 @@ import 'package:managex/src/feature/auth/repository/auth_repository.dart';
 
 import 'package:managex/src/feature/inventory/inventory_repo.dart';
 import 'package:managex/src/feature/inventory/bloc/index.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
+   await dotenv.load(fileName: ".env");
+  await  Supabase.initialize(
+    url: dotenv.env['SUPABASE_URL']!,
+    anonKey: dotenv.env['SUPABASE_KEY']!,
+  );
   await Hive.openBox('inventory');
 
   if (!kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
