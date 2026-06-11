@@ -1,0 +1,66 @@
+import 'dart:io';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'package:managex/src/core/routes/route_generator.dart';
+import 'package:managex/src/core/routes/routers.dart';
+import 'package:managex/src/core/theme/app_theme.dart';
+import 'package:managex/src/feature/auth/bloc/register/register_bloc.dart';
+import 'package:managex/src/feature/auth/repository/auth_repository.dart';
+
+import 'package:managex/src/feature/inventory/inventory_repo.dart';
+import 'package:managex/src/feature/inventory/bloc/index.dart';
+// import 'package:supabase_flutter/supabase_flutter.dart';
+// import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  //  await dotenv.load(fileName: ".env");
+  // await  Supabase.initialize(
+  //   url: dotenv.env['SUPABASE_URL']!,
+  //   anonKey: dotenv.env['SUPABASE_KEY']!,
+  // );
+  await Hive.openBox('inventory');
+
+  if (!kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
+    sqfliteFfiInit();
+    databaseFactory = databaseFactoryFfi;
+  }
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark, // Android icons
+      statusBarBrightness: Brightness.light,    // iOS icons
+    ),
+  );
+  runApp(const MainApp());
+}
+
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<InventoryBloc>(
+          create: (context) => InventoryBloc(InventoryRepo()),
+        ),
+        BlocProvider<RegisterBloc>(
+          create: (context) => RegisterBloc(AuthRepository()),
+        ),
+      ],
+      child: MaterialApp(
+        title: "ManageX",
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.light,
+        initialRoute: Routers.splashPage,
+        onGenerateRoute: RouteGenerator.generateRoute,
+      ),
+    );
+  }
+}
