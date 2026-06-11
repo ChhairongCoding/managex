@@ -103,13 +103,8 @@ class _ShowAddProductModalWidgetState extends State<ShowAddProductModalWidget> {
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              const SizedBox(height: 30),
               Row(
                 children: [
-                  IconButton(
-                    onPressed: () => Navigator.pop(context),
-                    icon: const Icon(Icons.close, color: Colors.black),
-                  ),
                   const Text(
                     "Add Product",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -322,6 +317,8 @@ class _ShowAddProductModalWidgetState extends State<ShowAddProductModalWidget> {
                           ? ElevatedButton.icon(
                               style: ElevatedButton.styleFrom(
                                 fixedSize: Size(double.infinity, 50),
+                                shadowColor: theme.colorScheme.primary.withValues(alpha: 0.3),
+                                elevation: 10,
                               ),
                               onPressed: () {
                                 context.read<InventoryBloc>().add(
@@ -345,8 +342,7 @@ class _ShowAddProductModalWidgetState extends State<ShowAddProductModalWidget> {
                                   ),
                                 );
                               },
-                              icon: Icon(Icons.check_box),
-                              label: Text("Confirm Restock"),
+                              label: Text("Confirm Restock", style: theme.textTheme.titleMedium?.copyWith(color: Colors.white)),
                             )
                           : ElevatedButton(
                               style: ElevatedButton.styleFrom(

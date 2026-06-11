@@ -4,66 +4,7 @@ import 'package:flutter/material.dart';
 
 enum ActivityType { sold, restocked, manualAdjustment }
 
-class ActivityItem {
-  final String productName;
-  final String sku;
-  final ActivityType type;
-  final int qtyChange; // negative for sold/deficit, positive for restocked
-  final int remaining;
-  final IconData icon;
-
-  const ActivityItem({
-    required this.productName,
-    required this.sku,
-    required this.type,
-    required this.qtyChange,
-    required this.remaining,
-    this.icon = Icons.inventory_2_outlined,
-  });
-
-  String get typeLabel {
-    switch (type) {
-      case ActivityType.sold:
-        return "SOLD";
-      case ActivityType.restocked:
-        return "RESTOCKED";
-      case ActivityType.manualAdjustment:
-        return "MANUAL ADJUSTMENT";
-    }
-  }
-
-  Color get accentColor {
-    switch (type) {
-      case ActivityType.sold:
-        return const Color(0xFFD32F2F);
-      case ActivityType.restocked:
-        return const Color(0xFF388E3C);
-      case ActivityType.manualAdjustment:
-        return const Color(0xFF7B1FA2);
-    }
-  }
-
-  Color get badgeBgColor {
-    switch (type) {
-      case ActivityType.sold:
-        return const Color(0xFFFFE5E5);
-      case ActivityType.restocked:
-        return const Color(0xFFE8F5E9);
-      case ActivityType.manualAdjustment:
-        return const Color(0xFFF3E5F5);
-    }
-  }
-
-  String get qtyLabel {
-    if (qtyChange < 0 && type == ActivityType.manualAdjustment) {
-      return "DEFICIT / DAMAGES";
-    }
-    return qtyChange < 0 ? "UNITS OUT" : "UNITS IN";
-  }
-}
-
 // --- Page ---
-
 class HistoryPage extends StatefulWidget {
   const HistoryPage({super.key});
 
@@ -194,9 +135,13 @@ class _HistoryPageState extends State<HistoryPage> {
           decoration: BoxDecoration(
             color: theme.colorScheme.surface,
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(
-              color: theme.colorScheme.outline.withValues(alpha: 0.15),
-            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.05),
+                blurRadius: 10,
+                offset: const Offset(0, 5),
+              ),
+            ],
           ),
           child: Icon(
             Icons.calendar_today_outlined,
@@ -220,12 +165,16 @@ class _HistoryPageState extends State<HistoryPage> {
               ? theme.colorScheme.primary
               : theme.colorScheme.surface,
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: isSelected
-                ? theme.colorScheme.primary
-                : theme.colorScheme.outline.withValues(alpha: 0.15),
+          boxShadow: [
+            BoxShadow(
+              color: isSelected
+                  ? theme.colorScheme.primary.withValues(alpha: 0.3)
+                  : Colors.black.withValues(alpha: 0.03),
+              blurRadius: 5,
+              offset: const Offset(0, 5),
+            ),
+          ],
           ),
-        ),
         child: Text(
           label,
           style: theme.textTheme.labelLarge?.copyWith(
@@ -244,6 +193,13 @@ class _HistoryPageState extends State<HistoryPage> {
       decoration: BoxDecoration(
         color: theme.colorScheme.primary.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: theme.colorScheme.primary.withValues(alpha: 0.05),
+            blurRadius: 5,
+            offset: const Offset(0, 3),
+          ),
+        ],
       ),
       child: Text(
         label,
@@ -266,6 +222,13 @@ class _HistoryPageState extends State<HistoryPage> {
         border: Border.all(
           color: theme.colorScheme.outline.withValues(alpha: 0.08),
         ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 5),
+          ),
+        ],
       ),
       child: Column(
         children: [
@@ -395,3 +358,62 @@ class _HistoryPageState extends State<HistoryPage> {
     );
   }
 }
+
+class ActivityItem {
+  final String productName;
+  final String sku;
+  final ActivityType type;
+  final int qtyChange; // negative for sold/deficit, positive for restocked
+  final int remaining;
+  final IconData icon;
+
+  const ActivityItem({
+    required this.productName,
+    required this.sku,
+    required this.type,
+    required this.qtyChange,
+    required this.remaining,
+    this.icon = Icons.inventory_2_outlined,
+  });
+
+  String get typeLabel {
+    switch (type) {
+      case ActivityType.sold:
+        return "SOLD";
+      case ActivityType.restocked:
+        return "RESTOCKED";
+      case ActivityType.manualAdjustment:
+        return "MANUAL ADJUSTMENT";
+    }
+  }
+
+  Color get accentColor {
+    switch (type) {
+      case ActivityType.sold:
+        return const Color(0xFFD32F2F);
+      case ActivityType.restocked:
+        return const Color(0xFF388E3C);
+      case ActivityType.manualAdjustment:
+        return const Color(0xFF7B1FA2);
+    }
+  }
+
+  Color get badgeBgColor {
+    switch (type) {
+      case ActivityType.sold:
+        return const Color(0xFFFFE5E5);
+      case ActivityType.restocked:
+        return const Color(0xFFE8F5E9);
+      case ActivityType.manualAdjustment:
+        return const Color(0xFFF3E5F5);
+    }
+  }
+
+  String get qtyLabel {
+    if (qtyChange < 0 && type == ActivityType.manualAdjustment) {
+      return "DEFICIT / DAMAGES";
+    }
+    return qtyChange < 0 ? "UNITS OUT" : "UNITS IN";
+  }
+}
+

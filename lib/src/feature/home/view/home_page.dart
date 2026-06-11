@@ -144,29 +144,28 @@ class _HomePageState extends State<HomePage> {
               spacing: 16,
               children: [
                 itemCardWidget(
-                  context,
-                  "Total Items",
-                  "12,482",
-                  HugeIcons.strokeRoundedPackage01,
-                  Colors.black,
-                  Theme.of(context).colorScheme.primary,
+                  context: context,
+                  title: "Total Items",
+                  value: "12,482",
+                  icon: HugeIcons.strokeRoundedPackage01,
+                  color: Colors.black,
+                  iconColor: Theme.of(context).colorScheme.primary,
                   backgroundColor: Theme.of(context).colorScheme.surface,
                 ),
                 itemCardWidget(
-                  context,
-                  "Low Stock",
-                  "08 SKUs",
-                  Icons.error_outline,
-                  Colors.black,
-                  Theme.of(context).colorScheme.error,
+                  context: context,
+                  title: "Low Stock",
+                  value: "08 SKUs",
+                  icon: Icons.error_outline,
+                  color: Colors.white,
+                  iconColor: Colors.white,
                   backgroundColor: Theme.of(
                     context,
-                  ).colorScheme.errorContainer.withValues(alpha: 0.04),
+                  ).colorScheme.error.withValues(alpha: 0.9),
                 ),
               ],
             ),
 
-            const SizedBox(height: 8),
             _sectionHeader(context, "Critical Alerts", onViewAll: () {}),
             _criticalAlertsSection(context, products, theme),
 
@@ -224,9 +223,13 @@ class _HomePageState extends State<HomePage> {
           decoration: BoxDecoration(
             color: theme.colorScheme.surface,
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(
-              color: theme.colorScheme.outline.withValues(alpha: 0.1),
-            ),
+            boxShadow: [
+              BoxShadow(
+                color: theme.colorScheme.outline.withValues(alpha: 0.05),
+                blurRadius: 10,
+                offset: const Offset(0, 5),
+              ),
+            ],
           ),
           child: Row(
             children: [
@@ -316,9 +319,13 @@ class _HomePageState extends State<HomePage> {
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(
-          color: theme.colorScheme.outline.withValues(alpha: 0.1),
-        ),
+        boxShadow: [
+          BoxShadow(
+            color: theme.colorScheme.outline.withValues(alpha: 0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 5),
+          ),
+        ],
       ),
       child: ListView.separated(
         shrinkWrap: true,
@@ -407,8 +414,8 @@ Container _inventoryValueCard(BuildContext context) {
       boxShadow: [
         BoxShadow(
           color: Colors.black.withValues(alpha: 0.03),
-          blurRadius: 20,
-          offset: const Offset(0, 10),
+          blurRadius: 10,
+          offset: const Offset(0, 3),
         ),
       ],
     ),

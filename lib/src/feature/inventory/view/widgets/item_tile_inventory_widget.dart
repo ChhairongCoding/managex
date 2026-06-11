@@ -10,9 +10,13 @@ class ItemTileInventoryWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        border: Border.all(
-          color: theme.colorScheme.outline.withValues(alpha: 0.1),
-        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.03),
+            blurRadius: 10,
+            offset: const Offset(0, 10),
+          ),
+        ],
         color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(24),
       ),

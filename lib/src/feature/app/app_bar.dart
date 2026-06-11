@@ -30,7 +30,7 @@ PreferredSizeWidget appBar(BuildContext context, {bool isScrolled = false}) {
         fontWeight: FontWeight.bold,
         fontSize: 22,
       ),
-      child: Image.asset("assets/images/logo_text_black.png", height: 30),
+      child: isScrolled ? Image.asset("assets/images/logo_text_white.png", height: 32) : Image.asset("assets/images/logo_text_black.png", height: 30),
     ),
     actions: [
       TweenAnimationBuilder<Color?>(
@@ -43,12 +43,16 @@ PreferredSizeWidget appBar(BuildContext context, {bool isScrolled = false}) {
           return IconButton(
             onPressed: () => showModalBottomSheet(
               isScrollControlled: true,
+              useSafeArea: true,
               context: context,
               builder: (context) => const ShowAddProductModalWidget(),
             ),
-            icon: HugeIcon(
-              icon: HugeIcons.strokeRoundedAddCircle,
-              color: color ?? primaryColor,
+            icon: CircleAvatar(
+              backgroundColor: Colors.grey.withValues(alpha: 0.2),
+              child: HugeIcon(
+                icon: HugeIcons.strokeRoundedAdd01,
+                color: color,
+              ),
             ),
           );
         },

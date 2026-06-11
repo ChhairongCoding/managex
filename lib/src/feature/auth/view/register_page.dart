@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:managex/src/core/routes/routers.dart';
 import 'package:managex/src/helper/resuable.dart';
@@ -23,6 +24,19 @@ class _RegisterPageState extends State<RegisterPage> {
 
   final _formKey = GlobalKey<FormState>();
 
+
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+      statusBarBrightness: Brightness.light,
+    ),
+  );
+  }
+
   @override
   void dispose() {
     _fullNameController.dispose();
@@ -38,6 +52,7 @@ class _RegisterPageState extends State<RegisterPage> {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
         backgroundColor: Colors.transparent,
         scrolledUnderElevation: 0,
         elevation: 0,

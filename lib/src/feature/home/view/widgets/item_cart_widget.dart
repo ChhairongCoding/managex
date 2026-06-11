@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 
 Expanded itemCardWidget(
-  BuildContext context,
-  String title,
-  String value,
-  dynamic icon,
-  Color color,
-  Color iconColor, {
-  Color? backgroundColor,
+  {required BuildContext context,
+  required String title,
+  required String value,
+  required dynamic icon,
+  required Color color,
+  required Color iconColor,
+  required Color? backgroundColor,
 }) {
   return Expanded(
     child: Container(
@@ -17,10 +17,13 @@ Expanded itemCardWidget(
       decoration: BoxDecoration(
         color: backgroundColor ?? color.withValues(alpha: 0.05),
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(
-          color: color.withValues(alpha: 0.1),
-          width: 1,
-        ),
+        boxShadow: [
+          BoxShadow(
+            color: color.withValues(alpha: 0.1),
+            blurRadius: 10,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
